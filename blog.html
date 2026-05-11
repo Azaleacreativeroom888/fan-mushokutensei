@@ -698,3 +698,38 @@
           <span class="tag-pill">SCENE</span>
           <span class="tag-pill">CHARACTER</span>
           <span class="tag-pill">REWATCH</span>
+        </div>
+      </div>
+
+    </aside>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-mark">Fan Archive</span>
+      <span class="footer-flowers">✾ · ✿ · ❀</span>
+      <span class="footer-copy">© Fan Log — 無職転生</span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleArticle(e, id) {
+      e.preventDefault();
+      const body = document.getElementById(id);
+      const link = e.currentTarget;
+      const arrow = link.querySelector('.read-more-arrow');
+
+      if (body.classList.contains('open')) {
+        body.classList.remove('open');
+        link.childNodes[0].textContent = 'READ MORE ';
+        arrow.style.transform = '';
+      } else {
+        body.classList.add('open');
+        link.childNodes[0].textContent = 'CLOSE ';
+        arrow.style.transform = 'rotate(90deg)';
+      }
+    }
+  </script>
+
+</body>
+</html>
