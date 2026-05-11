@@ -1,571 +1,576 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mushoku Tensei Fan Log</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg:          #1c1410;
-      --bg-warm:     #221a12;
-      --bg-card:     #271e15;
-      --bg-hover:    #2e2318;
-      --border:      #3a2e22;
-      --border-soft: #4a3c2c;
-      --text-main:   #d4c4a8;
-      --text-sub:    #9a8a70;
-      --text-dim:    #5a4e3c;
-      --sepia:       #c8a870;
-      --sepia-dark:  #8a6a40;
-      --parchment:   #b89a68;
-      --rose:        #9a7060;
-      --leaf:        #7a8a60;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>異世界の扉 — 無職転生ファンサイト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Noto+Serif+JP:wght@300;400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sepia-dark: #2c1a0e;
+    --sepia-mid: #5c3d1e;
+    --sepia-warm: #8b5e3c;
+    --orange-glow: #d4722a;
+    --orange-light: #e8973a;
+    --cream: #f5e6c8;
+    --parchment: #ede0c4;
+    --gold: #c9961a;
+    --gold-light: #e8c547;
+    --shadow: rgba(20, 10, 0, 0.8);
+  }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: 'Noto Serif JP', serif;
-      font-weight: 200;
-      line-height: 1.9;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
+  body {
+    background-color: var(--sepia-dark);
+    color: var(--cream);
+    font-family: 'Noto Serif JP', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23e8973a' opacity='0.8'/%3E%3C/svg%3E") 10 10, auto;
+  }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 50% at 50% 0%,   rgba(180,140,80,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 30% at 80% 80%,  rgba(140,100,60,0.04) 0%, transparent 50%),
-        radial-gradient(ellipse 30% 20% at 10% 60%,  rgba(160,120,70,0.03) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
-    }
+  /* ── 背景テクスチャ ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(212,114,42,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(139,94,60,0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 60%, rgba(201,150,26,0.1) 0%, transparent 40%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
 
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
+  /* ── ナビゲーション ── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(20,10,5,0.95), transparent);
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    header, .container, footer { position: relative; z-index: 1; }
+  .nav-logo {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 0.9rem;
+    color: var(--gold-light);
+    text-shadow: 0 0 20px rgba(232,197,71,0.5);
+    letter-spacing: 2px;
+  }
 
-    @keyframes sway {
-      0%,100% { transform: translateY(0) rotate(0deg); }
-      50%      { transform: translateY(-5px) rotate(2deg); }
-    }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
 
-    /* ── HEADER ── */
-    header {
-      padding: 64px 20px 48px;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      overflow: visible;
-    }
+  .nav-links a {
+    color: var(--parchment);
+    text-decoration: none;
+    font-family: 'IM Fell English', serif;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    position: relative;
+    transition: color 0.3s;
+  }
 
-    .header-ornament {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--orange-glow);
+    transition: width 0.3s;
+  }
 
-    .ornament-line {
-      width: 60px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--sepia-dark));
-    }
-    .ornament-line.rev {
-      background: linear-gradient(to left, transparent, var(--sepia-dark));
-    }
+  .nav-links a:hover { color: var(--orange-light); }
+  .nav-links a:hover::after { width: 100%; }
 
-    .ornament-diamond {
-      width: 5px;
-      height: 5px;
-      border: 1px solid var(--sepia-dark);
-      transform: rotate(45deg);
-      flex-shrink: 0;
-    }
+  /* ── ヒーロー ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+  }
 
-    .ornament-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 10px;
-      font-style: italic;
-      color: var(--text-dim);
-      letter-spacing: 0.35em;
-    }
+  /* 魔法陣 SVG */
+  .magic-circle-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(700px, 95vw);
+    height: min(700px, 95vw);
+    z-index: -1;
+  }
 
-    .site-kana {
-      font-size: 10px;
-      letter-spacing: 0.4em;
-      color: var(--text-dim);
-      font-family: 'Cormorant Garamond', serif;
-      margin-bottom: 14px;
-    }
+  .magic-circle-outer {
+    animation: rotateOuter 40s linear infinite;
+    transform-origin: center;
+  }
+  .magic-circle-mid {
+    animation: rotateMid 25s linear infinite reverse;
+    transform-origin: center;
+  }
+  .magic-circle-inner {
+    animation: rotateInner 15s linear infinite;
+    transform-origin: center;
+  }
 
-    header h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(28px, 5.5vw, 46px);
-      font-weight: 300;
-      font-style: italic;
-      letter-spacing: 0.06em;
-      color: var(--text-main);
-      margin-bottom: 6px;
-      text-shadow: 0 2px 20px rgba(180,140,80,0.15);
-    }
+  @keyframes rotateOuter { to { transform: rotate(360deg); } }
+  @keyframes rotateMid   { to { transform: rotate(360deg); } }
+  @keyframes rotateInner { to { transform: rotate(360deg); } }
 
-    .title-sub {
-      font-size: 10px;
-      letter-spacing: 0.5em;
-      color: var(--text-dim);
-      font-family: 'Cormorant Garamond', serif;
-      margin-bottom: 32px;
-    }
+  .glow-pulse {
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 0.9; }
+  }
 
-    .deco-topleft {
-      position: absolute;
-      top: 14px; left: 18px;
-      font-size: 18px;
-      color: var(--sepia-dark);
-      opacity: 0.25;
-      animation: sway 7s ease-in-out infinite;
-    }
+  /* ヒーローテキスト */
+  .hero-eyebrow {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--orange-light);
+    letter-spacing: 4px;
+    margin-bottom: 1.5rem;
+    animation: fadeInDown 1.2s ease both;
+  }
 
-    .deco-topright {
-      position: absolute;
-      top: 14px; right: 18px;
-      font-size: 14px;
-      color: var(--rose);
-      opacity: 0.2;
-      animation: sway 9s ease-in-out infinite reverse;
-    }
+  .hero-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(2.2rem, 6vw, 5rem);
+    color: var(--gold-light);
+    text-shadow:
+      0 0 30px rgba(232,197,71,0.6),
+      0 0 60px rgba(212,114,42,0.4),
+      2px 2px 0 rgba(92,61,30,0.8);
+    line-height: 1.3;
+    animation: fadeInDown 1.4s ease both;
+    margin-bottom: 0.3rem;
+  }
 
-    /* ── NAV ── */
-    nav {
-      display: inline-flex;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      border-radius: 2px;
-    }
+  .hero-subtitle {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: var(--cream);
+    opacity: 0.85;
+    letter-spacing: 6px;
+    animation: fadeInDown 1.6s ease both;
+    margin-bottom: 2.5rem;
+  }
 
-    nav a {
-      color: var(--text-sub);
-      text-decoration: none;
-      font-size: 9px;
-      letter-spacing: 0.4em;
-      font-family: 'Cormorant Garamond', serif;
-      padding: 7px 22px;
-      transition: color 0.3s, background 0.3s;
-      border-right: 1px solid var(--border);
-    }
+  .hero-desc {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--parchment);
+    opacity: 0.75;
+    max-width: 480px;
+    line-height: 1.8;
+    animation: fadeInUp 1.8s ease both;
+    margin-bottom: 3rem;
+  }
 
-    nav a:last-child { border-right: none; }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
-    nav a:hover {
-      color: var(--sepia);
-      background: var(--bg-hover);
-    }
+  /* CTAボタン */
+  .btn-primary {
+    display: inline-block;
+    padding: 0.9rem 3rem;
+    background: linear-gradient(135deg, var(--orange-glow), var(--sepia-mid));
+    color: var(--cream);
+    text-decoration: none;
+    font-family: 'IM Fell English', serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    border: 1px solid var(--orange-light);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    animation: fadeInUp 2s ease both;
+  }
 
-    /* ── CONTAINER ── */
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 56px 24px 80px;
-    }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(232,197,71,0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
 
-    /* ── INTRO ── */
-    .intro {
-      margin-bottom: 64px;
-      padding: 30px 36px;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-warm) 100%);
-      position: relative;
-      text-align: center;
-    }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,114,42,0.4); }
+  .btn-primary:hover::before { opacity: 1; }
 
-    .intro::before { content: '✿'; position: absolute; top: 10px; left: 14px; font-size: 11px; color: var(--text-dim); }
-    .intro::after  { content: '✿'; position: absolute; bottom: 10px; right: 14px; font-size: 11px; color: var(--text-dim); }
+  /* ── セクション：フィーチャーカード ── */
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-    .intro p {
-      font-size: 13px;
-      color: var(--text-sub);
-      line-height: 2.2;
-    }
+  .section-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(232,197,71,0.3);
+  }
 
-    /* ── SECTION ── */
-    .section { margin-bottom: 64px; }
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3.5rem;
+  }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
+  .section-divider::before, .section-divider::after {
+    content: '';
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--orange-glow));
+  }
+  .section-divider::after {
+    background: linear-gradient(to left, transparent, var(--orange-glow));
+  }
 
-    .section-header h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.45em;
-      color: var(--text-sub);
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
+  .divider-rune {
+    font-size: 1.2rem;
+    color: var(--orange-glow);
+  }
 
-    .section-deco {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 12px;
-      color: var(--sepia-dark);
-    }
+  /* カードグリッド */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
 
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, var(--border-soft), transparent);
-    }
+  .card {
+    background: linear-gradient(145deg, rgba(92,61,30,0.3), rgba(44,26,14,0.6));
+    border: 1px solid rgba(201,150,26,0.2);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
 
-    /* ── POSTS ── */
-    .post {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 17px 20px 17px 22px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      margin-bottom: 8px;
-      transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
-    }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212,114,42,0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
 
-    .post::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: linear-gradient(to bottom, var(--sepia-dark), var(--rose));
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: transform 0.35s ease;
-    }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(10,5,0,0.6); }
+  .card:hover::before { opacity: 1; }
 
-    .post:hover {
-      background: var(--bg-hover);
-      border-color: var(--border-soft);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
-    }
+  .card-corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .card-corner.tl { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
+  .card-corner.br { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
 
-    .post:hover::before { transform: scaleY(1); }
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    filter: sepia(0.5) saturate(1.5);
+  }
 
-    .post-flower {
-      font-size: 13px;
-      color: var(--sepia-dark);
-      padding-top: 1px;
-      flex-shrink: 0;
-      transition: color 0.3s;
-    }
+  .card-title {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.4rem;
+    color: var(--orange-light);
+    margin-bottom: 0.8rem;
+  }
 
-    .post:hover .post-flower { color: var(--sepia); }
+  .card-text {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--parchment);
+    opacity: 0.8;
+  }
 
-    .post-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 10px;
-      color: var(--text-dim);
-      letter-spacing: 0.15em;
-      min-width: 46px;
-      padding-top: 3px;
-    }
+  .card-link {
+    display: inline-block;
+    margin-top: 1.2rem;
+    color: var(--gold);
+    text-decoration: none;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  .card-link:hover { border-color: var(--gold); }
 
-    .post-body { flex: 1; }
+  /* ── 名言バナー ── */
+  .quote-banner {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, rgba(92,61,30,0.5), rgba(44,26,14,0.8));
+    border-top: 1px solid rgba(201,150,26,0.2);
+    border-bottom: 1px solid rgba(201,150,26,0.2);
+    padding: 4rem 3rem;
+    text-align: center;
+    margin: 2rem 0;
+  }
 
-    .post-title {
-      font-size: 14px;
-      color: var(--text-main);
-      font-weight: 300;
-      display: block;
-      margin-bottom: 4px;
-      font-family: 'Noto Serif JP', serif;
-    }
+  .quote-text {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--cream);
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+  }
 
-    .post-desc {
-      font-size: 11px;
-      color: var(--text-sub);
-    }
+  .quote-author {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.85rem;
+    color: var(--orange-light);
+    letter-spacing: 3px;
+    opacity: 0.8;
+  }
 
-    .post-tag {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 8px;
-      letter-spacing: 0.3em;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-      padding: 2px 10px;
-      border-radius: 10px;
-      align-self: center;
-      white-space: nowrap;
-    }
+  /* セピアオーバーレイ効果 */
+  .sepia-frame {
+    position: relative;
+  }
+  .sepia-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(92,50,10,0.15), rgba(44,26,14,0.3));
+    pointer-events: none;
+  }
 
-    /* ── DIVIDER ── */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 48px 0;
-    }
+  /* ── フッター ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(201,150,26,0.15);
+    padding: 3rem;
+    text-align: center;
+  }
 
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border-soft), transparent);
-    }
+  .footer-rune {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.2rem;
+    color: var(--gold);
+    opacity: 0.5;
+    margin-bottom: 1rem;
+    display: block;
+  }
 
-    .divider-inner {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Cormorant Garamond', serif;
-    }
+  .footer-text {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--parchment);
+    opacity: 0.4;
+  }
 
-    .divider-inner span { font-size: 13px; color: var(--sepia-dark); }
-    .divider-inner .sm { font-size: 9px; color: var(--text-dim); }
-
-    /* ── GALLERY ── */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .gallery-item {
-      position: relative;
-      aspect-ratio: 3/4;
-      overflow: hidden;
-      border-radius: 3px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .gallery-item:hover {
-      border-color: var(--border-soft);
-      box-shadow: 0 6px 28px rgba(0,0,0,0.4);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: filter 0.4s ease, transform 0.5s ease;
-      display: block;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.04);
-    }
-
-    .gallery-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .ph-icon {
-      font-size: 26px;
-      opacity: 0.18;
-    }
-
-    .ph-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 9px;
-      letter-spacing: 0.35em;
-      color: var(--text-dim);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 20px;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .footer-mark {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 12px;
-      color: var(--text-dim);
-      letter-spacing: 0.3em;
-      font-style: italic;
-    }
-
-    .footer-flowers {
-      font-size: 11px;
-      color: var(--text-dim);
-      letter-spacing: 0.3em;
-    }
-
-    .footer-copy {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 10px;
-      color: var(--text-dim);
-      letter-spacing: 0.2em;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .anim    { animation: fadeUp 0.7s ease both; }
-    .anim-d1 { animation-delay: 0.07s; }
-    .anim-d2 { animation-delay: 0.14s; }
-    .anim-d3 { animation-delay: 0.21s; }
-    .anim-d4 { animation-delay: 0.28s; }
-    .anim-d5 { animation-delay: 0.35s; }
-
-    @media (max-width: 600px) {
-      .gallery { grid-template-columns: repeat(2, 1fr); }
-      .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
-      .post-tag { display: none; }
-    }
-  </style>
+  /* スクロールアニメ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <div class="deco-topleft">✾</div>
-    <div class="deco-topright">❧</div>
+<nav>
+  <div class="nav-logo">✦ 無職転生 ✦</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
 
-    <div class="header-ornament anim">
-      <div class="ornament-line rev"></div>
-      <div class="ornament-diamond"></div>
-      <span class="ornament-text">fan archive</span>
-      <div class="ornament-diamond"></div>
-      <div class="ornament-line"></div>
-    </div>
+<section class="hero">
 
-    <div class="site-kana anim anim-d1">ファンサイト — 無職転生</div>
-    <h1 class="anim anim-d2">Mushoku Tensei Fan Log</h1>
-    <div class="title-sub anim anim-d3">Jobless Reincarnation · Personal Archive</div>
+  <!-- 魔法陣 SVG -->
+  <div class="magic-circle-container">
+    <svg viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="softglow">
+          <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
 
-    <nav class="anim anim-d4">
-      <a href="blog.html">BLOG</a>
-      <a href="gallery.html">GALLERY</a>
-      <a href="about.html">ABOUT</a>
-    </nav>
-  </header>
+      <!-- 背景グロー -->
+      <circle cx="350" cy="350" r="280" fill="rgba(212,114,42,0.04)" class="glow-pulse"/>
+      <circle cx="350" cy="350" r="200" fill="rgba(201,150,26,0.05)" class="glow-pulse"/>
 
-  <div class="container">
+      <!-- 外円 (回転) -->
+      <g class="magic-circle-outer" style="transform-origin:350px 350px">
+        <circle cx="350" cy="350" r="300" fill="none" stroke="rgba(201,150,26,0.25)" stroke-width="1"/>
+        <circle cx="350" cy="350" r="290" fill="none" stroke="rgba(212,114,42,0.15)" stroke-width="0.5"/>
+        <!-- 外周ルーン文字風マーカー -->
+        <text font-family="serif" font-size="14" fill="rgba(232,197,71,0.5)" filter="url(#glow)">
+          <textPath href="#outerRing">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ</textPath>
+        </text>
+        <defs>
+          <path id="outerRing" d="M350,50 a300,300 0 1,1 -0.1,0"/>
+        </defs>
+        <!-- 8角形 -->
+        <polygon points="350,58 489,128 590,250 590,450 489,572 350,642 211,572 110,450 110,250 211,128"
+          fill="none" stroke="rgba(201,150,26,0.2)" stroke-width="1"/>
+      </g>
 
-    <div class="intro anim anim-d5">
-      <p>
-        このサイトは『無職転生』のファンアートを置くための場所です。<br>
-        正しい解釈とかじゃなくて、「ここ好き」「なんか分からないけど良い」を大事にしてます。
-      </p>
-    </div>
+      <!-- 中円 (逆回転) -->
+      <g class="magic-circle-mid" style="transform-origin:350px 350px">
+        <circle cx="350" cy="350" r="220" fill="none" stroke="rgba(212,114,42,0.35)" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <circle cx="350" cy="350" r="210" fill="none" stroke="rgba(201,150,26,0.2)" stroke-width="0.5"/>
+        <!-- 六芒星 -->
+        <polygon points="350,142 428,280 564,280 486,418 564,556 350,556 136,556 214,418 136,280 272,280"
+          fill="none" stroke="rgba(212,114,42,0.25)" stroke-width="1.2"/>
+        <!-- 中間の三角 -->
+        <polygon points="350,160 476,370 224,370" fill="none" stroke="rgba(201,150,26,0.3)" stroke-width="1"/>
+        <polygon points="350,540 224,330 476,330" fill="none" stroke="rgba(201,150,26,0.3)" stroke-width="1"/>
+      </g>
 
-    <div class="section">
-      <div class="section-header">
-        <span class="section-deco">✦</span>
-        <h2>Latest Posts</h2>
-        <div class="section-line"></div>
-      </div>
+      <!-- 内円 (回転) -->
+      <g class="magic-circle-inner" style="transform-origin:350px 350px">
+        <circle cx="350" cy="350" r="140" fill="none" stroke="rgba(232,197,71,0.4)" stroke-width="1.5" filter="url(#glow)"/>
+        <circle cx="350" cy="350" r="130" fill="none" stroke="rgba(212,114,42,0.2)" stroke-width="0.5"/>
+        <!-- 内部ペンタグラム -->
+        <polygon points="350,215 398,353 352,460 248,396 302,253"
+          fill="none" stroke="rgba(232,197,71,0.3)" stroke-width="1" filter="url(#glow)"/>
+        <!-- 中心点 -->
+        <circle cx="350" cy="350" r="8" fill="rgba(232,197,71,0.6)" filter="url(#softglow)"/>
+        <circle cx="350" cy="350" r="3" fill="rgba(255,220,100,0.9)" filter="url(#glow)"/>
+      </g>
 
-      <a class="post" href="blog.html">
-        <span class="post-flower">❀</span>
-        <span class="post-date">05.08</span>
-        <div class="post-body">
-          <span class="post-title">第○話のこのシーンが好きすぎる</span>
-          <span class="post-desc">感情がぐちゃぐちゃになるやつ</span>
-        </div>
-        <span class="post-tag">FEELINGS</span>
-      </a>
-
-      <a class="post" href="blog.html">
-        <span class="post-flower">✾</span>
-        <span class="post-date">04.30</span>
-        <div class="post-body">
-          <span class="post-title">この表情なんなんだろう</span>
-          <span class="post-desc">分からないけどめちゃくちゃ好き</span>
-        </div>
-        <span class="post-tag">EXPRESSION</span>
-      </a>
-    </div>
-
-    <div class="divider">
-      <div class="divider-inner">
-        <span>✿</span>
-        <span class="sm">· · ·</span>
-        <span>✿</span>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-header">
-        <span class="section-deco">✦</span>
-        <h2>Illustration</h2>
-        <div class="section-line"></div>
-      </div>
-
-      <div class="gallery">
-        <div class="gallery-item">
-          <img src="illust1.jpg" alt="">
-          <div class="gallery-placeholder">
-            <span class="ph-icon">🌸</span>
-            <span class="ph-label">ILLUST · 01</span>
-          </div>
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <span class="ph-icon">🌿</span>
-            <span class="ph-label">ILLUST · 02</span>
-          </div>
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <span class="ph-icon">🕯️</span>
-            <span class="ph-label">ILLUST · 03</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
+      <!-- 固定の装飾線 -->
+      <line x1="350" y1="50" x2="350" y2="650" stroke="rgba(201,150,26,0.08)" stroke-width="0.5"/>
+      <line x1="50" y1="350" x2="650" y2="350" stroke="rgba(201,150,26,0.08)" stroke-width="0.5"/>
+    </svg>
   </div>
 
-  <footer>
-    <div class="footer-inner">
-      <span class="footer-mark">Fan Archive</span>
-      <span class="footer-flowers">✾ · ✿ · ❀</span>
-      <span class="footer-copy">© Fan Log — 無職転生</span>
-    </div>
-  </footer>
+  <p class="hero-eyebrow">— 異世界の扉へようこそ —</p>
+  <h1 class="hero-title">無職転生</h1>
+  <p class="hero-subtitle">異世界行ったら本気だす</p>
+  <p class="hero-desc">
+    ルーデウス・グレイラットの物語。<br>
+    後悔なき人生を、もう一度。<br>
+    <em>魔法と冒険の世界へ、あなたを誘う扉。</em>
+  </p>
+  <a href="blog.html" class="btn-primary">扉を開く →</a>
+</section>
 
+<!-- 名言バナー -->
+<div class="quote-banner">
+  <p class="quote-text">
+    "俺はこの世界でも後悔しないように生きる。<br>
+    それだけが、前世の俺への誓いだから。"
+  </p>
+  <p class="quote-author">— ルーデウス・グレイラット</p>
+</div>
+
+<!-- フィーチャーカード -->
+<div class="section">
+  <h2 class="section-title">Explore the World</h2>
+  <div class="section-divider"><span class="divider-rune">✦</span></div>
+
+  <div class="card-grid">
+    <div class="card reveal">
+      <div class="card-corner tl"></div>
+      <div class="card-corner br"></div>
+      <span class="card-icon">📖</span>
+      <h3 class="card-title">Story & Blog</h3>
+      <p class="card-text">ルーデウスの冒険と成長を追う。各章の考察、感想、伏線分析まで。魔法と絆が織りなす物語の深みへ。</p>
+      <a href="blog.html" class="card-link">記事を読む →</a>
+    </div>
+
+    <div class="card reveal" style="transition-delay:0.15s">
+      <div class="card-corner tl"></div>
+      <div class="card-corner br"></div>
+      <span class="card-icon">🎨</span>
+      <h3 class="card-title">Gallery</h3>
+      <p class="card-text">セピア色に染まった異世界の情景。キャラクターたちの姿を、古写真のような温かみある筆致で。</p>
+      <a href="gallery.html" class="card-link">作品を見る →</a>
+    </div>
+
+    <div class="card reveal" style="transition-delay:0.3s">
+      <div class="card-corner tl"></div>
+      <div class="card-corner br"></div>
+      <span class="card-icon">✨</span>
+      <h3 class="card-title">About</h3>
+      <p class="card-text">このサイトについて、そしてなぜ無職転生が特別なのか。一人のファンの情熱から生まれた聖地。</p>
+      <a href="about.html" class="card-link">サイトについて →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-rune">❧ ✦ ❧</span>
+  <p class="footer-text">Fan Site — 無職転生 © Rifujin na Magonote / MF Books<br>
+  This is an unofficial fan site. All rights belong to their respective owners.</p>
+</footer>
+
+<script>
+  // スクロール reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
