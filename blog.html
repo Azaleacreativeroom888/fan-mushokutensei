@@ -38,23 +38,19 @@
 
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background:
-        radial-gradient(ellipse 70% 50% at 50% 0%,   rgba(180,140,80,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 30% at 80% 80%,  rgba(140,100,60,0.04) 0%, transparent 50%),
-        radial-gradient(ellipse 30% 20% at 10% 60%,  rgba(160,120,70,0.03) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
+        radial-gradient(ellipse 70% 50% at 50% 0%,  rgba(180,140,80,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(140,100,60,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse 30% 20% at 10% 60%, rgba(160,120,70,0.03) 0%, transparent 50%);
+      pointer-events: none; z-index: 0;
     }
 
     body::after {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
 
     header, main, footer { position: relative; z-index: 1; }
@@ -63,9 +59,8 @@
       0%,100% { transform: translateY(0) rotate(0deg); }
       50%      { transform: translateY(-5px) rotate(2deg); }
     }
-
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -73,7 +68,6 @@
     .anim-d1 { animation-delay: 0.07s; }
     .anim-d2 { animation-delay: 0.14s; }
     .anim-d3 { animation-delay: 0.21s; }
-    .anim-d4 { animation-delay: 0.28s; }
 
     /* ── HEADER ── */
     header {
@@ -83,417 +77,101 @@
       position: relative;
     }
 
-    .deco-topleft {
-      position: absolute;
-      top: 14px; left: 18px;
-      font-size: 18px;
-      color: var(--sepia-dark);
-      opacity: 0.25;
-      animation: sway 7s ease-in-out infinite;
-    }
+    .deco-topleft  { position: absolute; top: 14px; left: 18px; font-size: 18px; color: var(--sepia-dark); opacity: 0.25; animation: sway 7s ease-in-out infinite; }
+    .deco-topright { position: absolute; top: 14px; right: 18px; font-size: 14px; color: var(--rose); opacity: 0.2; animation: sway 9s ease-in-out infinite reverse; }
 
-    .deco-topright {
-      position: absolute;
-      top: 14px; right: 18px;
-      font-size: 14px;
-      color: var(--rose);
-      opacity: 0.2;
-      animation: sway 9s ease-in-out infinite reverse;
-    }
-
-    .header-ornament {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .ornament-line      { width: 50px; height: 1px; background: linear-gradient(to right, transparent, var(--sepia-dark)); }
-    .ornament-line.rev  { background: linear-gradient(to left, transparent, var(--sepia-dark)); }
-    .ornament-diamond   { width: 5px; height: 5px; border: 1px solid var(--sepia-dark); transform: rotate(45deg); flex-shrink: 0; }
-    .ornament-text      { font-family: 'Cormorant Garamond', serif; font-size: 10px; font-style: italic; color: var(--text-dim); letter-spacing: 0.35em; }
+    .header-ornament { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; }
+    .ornament-line     { width: 50px; height: 1px; background: linear-gradient(to right, transparent, var(--sepia-dark)); }
+    .ornament-line.rev { background: linear-gradient(to left, transparent, var(--sepia-dark)); }
+    .ornament-diamond  { width: 5px; height: 5px; border: 1px solid var(--sepia-dark); transform: rotate(45deg); flex-shrink: 0; }
+    .ornament-text     { font-family: 'Cormorant Garamond', serif; font-size: 10px; font-style: italic; color: var(--text-dim); letter-spacing: 0.35em; }
 
     .site-title {
+      display: block;
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(22px, 4vw, 34px);
-      font-weight: 300;
-      font-style: italic;
-      color: var(--text-main);
-      letter-spacing: 0.06em;
-      margin-bottom: 4px;
-      text-shadow: 0 2px 20px rgba(180,140,80,0.12);
+      font-size: clamp(22px, 4vw, 34px); font-weight: 300; font-style: italic;
+      color: var(--text-main); letter-spacing: 0.06em; margin-bottom: 4px;
+      text-shadow: 0 2px 20px rgba(180,140,80,0.12); text-decoration: none;
     }
 
-    .page-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 10px;
-      letter-spacing: 0.5em;
-      color: var(--text-dim);
-      margin-bottom: 28px;
-    }
+    .page-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; color: var(--text-dim); margin-bottom: 28px; }
 
-    nav {
-      display: inline-flex;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      border-radius: 2px;
-    }
-
-    nav a {
-      color: var(--text-sub);
-      text-decoration: none;
-      font-size: 9px;
-      letter-spacing: 0.4em;
-      font-family: 'Cormorant Garamond', serif;
-      padding: 7px 22px;
-      transition: color 0.3s, background 0.3s;
-      border-right: 1px solid var(--border);
-    }
-
+    nav { display: inline-flex; border: 1px solid var(--border); overflow: hidden; border-radius: 2px; }
+    nav a { color: var(--text-sub); text-decoration: none; font-size: 9px; letter-spacing: 0.4em; font-family: 'Cormorant Garamond', serif; padding: 7px 22px; transition: color 0.3s, background 0.3s; border-right: 1px solid var(--border); }
     nav a:last-child { border-right: none; }
-    nav a:hover { color: var(--sepia); background: var(--bg-hover); }
+    nav a:hover  { color: var(--sepia); background: var(--bg-hover); }
     nav a.active { color: var(--sepia); background: var(--bg-card); }
 
-    /* ── MAIN LAYOUT ── */
+    /* ── MAIN ── */
     main {
-      max-width: 860px;
+      max-width: 640px;
       margin: 0 auto;
-      padding: 52px 24px 80px;
+      padding: 56px 24px 80px;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+    .section-deco  { font-size: 11px; color: var(--sepia-dark); }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 11px; font-weight: 400; letter-spacing: 0.45em; color: var(--text-sub); text-transform: uppercase; white-space: nowrap; }
+    .section-line  { flex: 1; height: 1px; background: linear-gradient(to right, var(--border-soft), transparent); }
+
+    /* ── LOG ENTRIES ── */
+    .log {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .log-entry {
       display: grid;
-      grid-template-columns: 1fr 220px;
-      gap: 48px;
-      align-items: start;
+      grid-template-columns: 88px 1fr;
+      gap: 0 24px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp 0.5s ease both;
     }
 
-    /* ── POSTS LIST ── */
-    .posts {}
+    .log-entry:first-child { border-top: 1px solid var(--border); }
 
-    .posts-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
+    .log-entry:nth-child(1) { animation-delay: 0.05s; }
+    .log-entry:nth-child(2) { animation-delay: 0.10s; }
+    .log-entry:nth-child(3) { animation-delay: 0.15s; }
+    .log-entry:nth-child(4) { animation-delay: 0.20s; }
+    .log-entry:nth-child(5) { animation-delay: 0.25s; }
+    .log-entry:nth-child(6) { animation-delay: 0.30s; }
+    .log-entry:nth-child(7) { animation-delay: 0.35s; }
+    .log-entry:nth-child(8) { animation-delay: 0.40s; }
 
-    .posts-header h2 {
+    .log-date {
       font-family: 'Cormorant Garamond', serif;
       font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.45em;
-      color: var(--text-sub);
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .section-deco { font-size: 11px; color: var(--sepia-dark); }
-
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, var(--border-soft), transparent);
-    }
-
-    /* ── ARTICLE CARD ── */
-    .article-card {
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      background: var(--bg-card);
-      margin-bottom: 16px;
-      overflow: hidden;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .article-card:nth-child(1) { animation-delay: 0.05s; }
-    .article-card:nth-child(2) { animation-delay: 0.12s; }
-    .article-card:nth-child(3) { animation-delay: 0.19s; }
-    .article-card:nth-child(4) { animation-delay: 0.26s; }
-
-    .article-card:hover {
-      border-color: var(--border-soft);
-      box-shadow: 0 6px 32px rgba(0,0,0,0.35);
-    }
-
-    .article-card-inner {
-      padding: 26px 28px 22px;
-    }
-
-    .article-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .article-flower {
-      font-size: 11px;
-      color: var(--sepia-dark);
-    }
-
-    .article-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 10px;
       color: var(--text-dim);
-      letter-spacing: 0.2em;
-    }
-
-    .article-tag {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 8px;
-      letter-spacing: 0.3em;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-      padding: 1px 9px;
-      border-radius: 10px;
-    }
-
-    .article-title {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 17px;
-      font-weight: 300;
-      color: var(--text-main);
-      margin-bottom: 10px;
+      letter-spacing: 0.1em;
+      padding-top: 3px;
       line-height: 1.6;
     }
 
-    .article-excerpt {
-      font-size: 12.5px;
-      color: var(--text-sub);
-      line-height: 2;
-      margin-bottom: 18px;
-    }
-
-    .article-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid var(--border);
-      padding-top: 14px;
-    }
-
-    .read-more {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      color: var(--sepia-dark);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.2s, gap 0.2s;
-    }
-
-    .read-more:hover {
-      color: var(--sepia);
-      gap: 10px;
-    }
-
-    .read-more-arrow {
-      font-size: 14px;
-      line-height: 1;
-      transition: transform 0.2s;
-    }
-
-    .read-more:hover .read-more-arrow { transform: translateX(3px); }
-
-    .article-mood {
-      font-size: 11px;
-      color: var(--text-dim);
-    }
-
-    /* ── FEATURED (大きいカード) ── */
-    .article-card.featured {
-      border-color: var(--border-soft);
-      position: relative;
-    }
-
-    .article-card.featured::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(to right, var(--sepia-dark), var(--rose), transparent);
-    }
-
-    .article-card.featured .article-title {
-      font-size: 20px;
-    }
-
-    .featured-badge {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 8px;
-      letter-spacing: 0.35em;
-      color: var(--sepia-dark);
-      border: 1px solid var(--sepia-dark);
-      padding: 1px 8px;
-      border-radius: 2px;
-    }
-
-    /* ── 記事本文（開いた状態） ── */
-    .article-body {
-      display: none;
-      padding: 0 28px 24px;
-      border-top: 1px solid var(--border);
-    }
-
-    .article-body.open {
+    .log-date .flower {
       display: block;
-      animation: fadeUp 0.4s ease;
-    }
-
-    .article-body p {
-      font-size: 13px;
-      color: var(--text-sub);
-      line-height: 2.2;
-      margin-top: 18px;
-    }
-
-    .article-body p + p {
-      margin-top: 12px;
-    }
-
-    /* ── SIDEBAR ── */
-    .sidebar {
-      position: sticky;
-      top: 32px;
-    }
-
-    .sidebar-block {
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      background: var(--bg-card);
-      padding: 20px 20px;
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .sidebar-block::before {
-      content: '✿';
-      position: absolute;
-      top: 8px; right: 12px;
-      font-size: 9px;
-      color: var(--text-dim);
-    }
-
-    .sidebar-title {
-      font-family: 'Cormorant Garamond', serif;
       font-size: 10px;
-      letter-spacing: 0.4em;
+      color: var(--sepia-dark);
+      margin-top: 6px;
+    }
+
+    .log-text {
+      font-size: 13.5px;
       color: var(--text-sub);
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
+      line-height: 2.1;
     }
-
-    .sidebar-list {
-      list-style: none;
-    }
-
-    .sidebar-list li {
-      padding: 7px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 11.5px;
-      color: var(--text-sub);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .sidebar-list li:last-child { border-bottom: none; }
-    .sidebar-list li:hover { color: var(--text-main); }
-
-    .sidebar-list .li-flower {
-      font-size: 9px;
-      color: var(--text-dim);
-      flex-shrink: 0;
-    }
-
-    .sidebar-list .li-count {
-      margin-left: auto;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 9px;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-    }
-
-    /* タグ雲 */
-    .tag-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .tag-pill {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 9px;
-      letter-spacing: 0.25em;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-      padding: 3px 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    .tag-pill:hover {
-      color: var(--sepia);
-      border-color: var(--sepia-dark);
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 12px 0 28px;
-    }
-
-    .divider::before, .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border-soft), transparent);
-    }
-
-    .divider-inner {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Cormorant Garamond', serif;
-    }
-
-    .divider-inner span { font-size: 11px; color: var(--sepia-dark); }
-    .divider-inner .sm  { font-size: 9px; color: var(--text-dim); }
 
     /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 30px 20px;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
-    .footer-mark  { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--text-dim); letter-spacing: 0.3em; font-style: italic; }
+    footer { border-top: 1px solid var(--border); padding: 30px 20px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; max-width: 640px; margin: 0 auto; }
+    .footer-mark    { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--text-dim); letter-spacing: 0.3em; font-style: italic; }
     .footer-flowers { font-size: 11px; color: var(--text-dim); letter-spacing: 0.3em; }
-    .footer-copy  { font-family: 'Cormorant Garamond', serif; font-size: 10px; color: var(--text-dim); letter-spacing: 0.2em; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 680px) {
-      main { grid-template-columns: 1fr; }
-      .sidebar { position: static; }
-    }
+    .footer-copy    { font-family: 'Cormorant Garamond', serif; font-size: 10px; color: var(--text-dim); letter-spacing: 0.2em; }
 
     @media (max-width: 480px) {
+      .log-entry { grid-template-columns: 70px 1fr; gap: 0 16px; }
       .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
@@ -512,9 +190,7 @@
       <div class="ornament-line"></div>
     </div>
 
-    <a href="index.html" style="text-decoration:none">
-      <div class="site-title anim anim-d1">Mushoku Tensei Fan Log</div>
-    </a>
+    <a href="index.html" class="site-title anim anim-d1">Mushoku Tensei Fan Log</a>
     <div class="page-label anim anim-d2">— BLOG —</div>
 
     <nav class="anim anim-d3">
@@ -526,182 +202,73 @@
   </header>
 
   <main>
-    <!-- ── 記事リスト ── -->
-    <div class="posts">
-      <div class="posts-header">
-        <span class="section-deco">✦</span>
-        <h2>All Posts</h2>
-        <div class="section-line"></div>
+
+    <div class="section-header">
+      <span class="section-deco">✦</span>
+      <span class="section-title">Log</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="log">
+
+      <div class="log-entry">
+        <div class="log-date">
+          2026.05.08
+          <span class="flower">❀</span>
+        </div>
+        <p class="log-text">第○話のあのシーン、また見てしまった。感情がぐちゃぐちゃになるやつ。何回見ても同じところで止まる。</p>
       </div>
 
-      <!-- 記事1 featured -->
-      <div class="article-card featured">
-        <div class="article-card-inner">
-          <div class="article-meta">
-            <span class="article-flower">❀</span>
-            <span class="article-date">2026.05.08</span>
-            <span class="featured-badge">LATEST</span>
-            <span class="article-tag">FEELINGS</span>
-          </div>
-          <h3 class="article-title">第○話のこのシーンが好きすぎる</h3>
-          <p class="article-excerpt">
-            感情がぐちゃぐちゃになるやつ。言葉にできないけど、なんかもう、ここだよここ。見るたびに違う気持ちになる。最初は悲しいと思ってたのに、2周目は全然違って見えた。
-          </p>
-          <div class="article-footer">
-            <a class="read-more" href="#" onclick="toggleArticle(event, 'body1')">
-              READ MORE <span class="read-more-arrow">→</span>
-            </a>
-            <span class="article-mood">感情 🌿</span>
-          </div>
+      <div class="log-entry">
+        <div class="log-date">
+          2026.04.30
+          <span class="flower">✾</span>
         </div>
-        <div class="article-body" id="body1">
-          <p>
-            最初に見たとき、あのシーンで普通に泣いてしまった。こんなに泣く予定じゃなかった。ただのファンタジーアニメのつもりで見てたのに、いつの間にか全力で感情移入してた。
-          </p>
-          <p>
-            表情の作り方がすごくて、ちゃんと言葉で説明してくれないけど伝わってくる。あの間とか、目線の動きとか。スタッフが分かってる感じがする。原作読んだとき脳内で想像してたより全然良かった。
-          </p>
-          <p>
-            何回見ても飽きないし、むしろ見るたびに新しい発見がある。解像度が上がっていく感じ、好き。
-          </p>
-        </div>
+        <p class="log-text">この表情なんなんだろう。分からないけどめちゃくちゃ好き。言語化しようとするほど逃げていく。</p>
       </div>
 
-      <div class="divider">
-        <div class="divider-inner">
-          <span>✿</span><span class="sm">· · ·</span><span>✿</span>
+      <div class="log-entry">
+        <div class="log-date">
+          2026.04.18
+          <span class="flower">❀</span>
         </div>
+        <p class="log-text">OPの入り方が毎回ずるい。あの瞬間に音楽が来るの計算されてると思う。スキップできない。</p>
       </div>
 
-      <!-- 記事2 -->
-      <div class="article-card">
-        <div class="article-card-inner">
-          <div class="article-meta">
-            <span class="article-flower">✾</span>
-            <span class="article-date">2026.04.30</span>
-            <span class="article-tag">EXPRESSION</span>
-          </div>
-          <h3 class="article-title">この表情なんなんだろう</h3>
-          <p class="article-excerpt">
-            分からないけどめちゃくちゃ好き。言語化しようとするほど逃げていく気がする。ただただ「良い」としか言えない。なんでこんなに刺さるんだろう。
-          </p>
-          <div class="article-footer">
-            <a class="read-more" href="#" onclick="toggleArticle(event, 'body2')">
-              READ MORE <span class="read-more-arrow">→</span>
-            </a>
-            <span class="article-mood">感覚 ❀</span>
-          </div>
+      <div class="log-entry">
+        <div class="log-date">
+          2026.04.05
+          <span class="flower">✾</span>
         </div>
-        <div class="article-body" id="body2">
-          <p>
-            これは本当に難しい。あの表情を見た瞬間に「分かる」ってなるんだけど、「何が分かるの？」って聞かれると答えられない。
-          </p>
-          <p>
-            たぶん言語化できない感情をそのまま映像にしてくれてる、みたいな感じがするのかもしれない。見た目の話じゃなくて、もっと内側の何かが。
-          </p>
-          <p>
-            この感覚を誰かと共有したいんだけど、伝わるか微妙。同じように感じてる人いたら嬉しい。
-          </p>
-        </div>
+        <p class="log-text">ファンアートを描き始めた。うまく描けなくてもいいから残したい。そういう気持ち。</p>
       </div>
 
-      <!-- 記事3 -->
-      <div class="article-card">
-        <div class="article-card-inner">
-          <div class="article-meta">
-            <span class="article-flower">❀</span>
-            <span class="article-date">2026.04.18</span>
-            <span class="article-tag">MUSIC</span>
-          </div>
-          <h3 class="article-title">OPの入り方が毎回ずるい</h3>
-          <p class="article-excerpt">
-            あの瞬間に音楽が来るのは計算されてると思う。引きずり込まれる。OPスキップできない人間なので毎話まるごと見てしまう。
-          </p>
-          <div class="article-footer">
-            <a class="read-more" href="#" onclick="toggleArticle(event, 'body3')">
-              READ MORE <span class="read-more-arrow">→</span>
-            </a>
-            <span class="article-mood">音楽 ✾</span>
-          </div>
+      <div class="log-entry">
+        <div class="log-date">
+          2026.03.28
+          <span class="flower">❀</span>
         </div>
-        <div class="article-body" id="body3">
-          <p>
-            映像と音楽のタイミングが完全に一致してる瞬間が好きすぎて。あそこでそのメロディーが来るのは反則。
-          </p>
-          <p>
-            OPって全部見る派なんだけど、このアニメは特に毎回ちゃんと見てしまう。同じOPなのに話数によって受け取り方が変わるのが面白い。伏線を知った後に見ると全部違って見える。
-          </p>
-        </div>
+        <p class="log-text">2周目に入った。同じシーンなのに受け取り方が全然違う。伏線が分かった上で見るとしんどさが倍になる。</p>
       </div>
 
-      <!-- 記事4 -->
-      <div class="article-card">
-        <div class="article-card-inner">
-          <div class="article-meta">
-            <span class="article-flower">✾</span>
-            <span class="article-date">2026.04.05</span>
-            <span class="article-tag">ART</span>
-          </div>
-          <h3 class="article-title">ファンアートを描き始めた話</h3>
-          <p class="article-excerpt">
-            絵が上手くなりたい気持ちになったのは久しぶりで、それだけでこの作品のことが好きなんだと思う。うまく描けなくてもいいから記録しておきたい。
-          </p>
-          <div class="article-footer">
-            <a class="read-more" href="#" onclick="toggleArticle(event, 'body4')">
-              READ MORE <span class="read-more-arrow">→</span>
-            </a>
-            <span class="article-mood">制作 🌸</span>
-          </div>
+      <div class="log-entry">
+        <div class="log-date">
+          2026.03.15
+          <span class="flower">✾</span>
         </div>
-        <div class="article-body" id="body4">
-          <p>
-            久しぶりに絵を描きたくなった。何かを描きたい、という気持ちになったのが何年ぶりかも分からないくらい久しぶりで、それが自分でも驚いた。
-          </p>
-          <p>
-            うまく描けなくてもいい。好きなキャラクターを、好きなシーンを、自分の手で残したい。そういう気持ちでこのサイトも作り始めた気がする。
-          </p>
-          <p>
-            ギャラリーに少しずつ追加していくつもりです。恥ずかしいけど。
-          </p>
+        <p class="log-text">エリスのことをずっと考えている。どういう気持ちであの決断をしたのか、原作読んでも答えが出ない。</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">
+          2026.03.02
+          <span class="flower">❀</span>
         </div>
+        <p class="log-text">このサイトを作り始めた。「好き」をちゃんと残したくなったので。</p>
       </div>
 
-    </div><!-- /posts -->
+    </div>
 
-    <!-- ── SIDEBAR ── -->
-    <aside class="sidebar anim anim-d4">
-
-      <div class="sidebar-block">
-        <div class="sidebar-title">About this log</div>
-        <p style="font-size:11.5px; color:var(--text-sub); line-height:2;">
-          「ここ好き」を残すための記録帳。<br>正解じゃなくて、感覚の話。
-        </p>
-      </div>
-
-      <div class="sidebar-block">
-        <div class="sidebar-title">Recent</div>
-        <ul class="sidebar-list">
-          <li><span class="li-flower">❀</span>第○話のシーン<span class="li-count">05.08</span></li>
-          <li><span class="li-flower">✾</span>この表情<span class="li-count">04.30</span></li>
-          <li><span class="li-flower">❀</span>OPの入り方<span class="li-count">04.18</span></li>
-          <li><span class="li-flower">✾</span>ファンアート<span class="li-count">04.05</span></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-block">
-        <div class="sidebar-title">Tags</div>
-        <div class="tag-cloud">
-          <span class="tag-pill">FEELINGS</span>
-          <span class="tag-pill">EXPRESSION</span>
-          <span class="tag-pill">MUSIC</span>
-          <span class="tag-pill">ART</span>
-          <span class="tag-pill">SCENE</span>
-          <span class="tag-pill">CHARACTER</span>
-          <span class="tag-pill">REWATCH</span>
-        </div>
-      </div>
-
-    </aside>
   </main>
 
   <footer>
@@ -711,25 +278,6 @@
       <span class="footer-copy">© Fan Log — 無職転生</span>
     </div>
   </footer>
-
-  <script>
-    function toggleArticle(e, id) {
-      e.preventDefault();
-      const body = document.getElementById(id);
-      const link = e.currentTarget;
-      const arrow = link.querySelector('.read-more-arrow');
-
-      if (body.classList.contains('open')) {
-        body.classList.remove('open');
-        link.childNodes[0].textContent = 'READ MORE ';
-        arrow.style.transform = '';
-      } else {
-        body.classList.add('open');
-        link.childNodes[0].textContent = 'CLOSE ';
-        arrow.style.transform = 'rotate(90deg)';
-      }
-    }
-  </script>
 
 </body>
 </html>
