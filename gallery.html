@@ -285,6 +285,51 @@
     .lb-meta { display: flex; gap: 8px; margin-top: 10px; }
     .lb-tag  { font-family: 'Cormorant Garamond', serif; font-size: 8px; letter-spacing: 0.3em; color: var(--text-dim); border: 1px solid var(--border); padding: 2px 10px; border-radius: 10px; }
 
+    /* ── JOURNAL LIST ── */
+    .journal-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .journal-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: var(--bg-card);
+      text-decoration: none;
+      transition: background 0.3s, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .journal-item::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--sepia-dark), var(--rose));
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 0.35s ease;
+    }
+
+    .journal-item:hover { background: var(--bg-hover); border-color: var(--border-soft); }
+    .journal-item:hover::before { transform: scaleY(1); }
+
+    .journal-flower { font-size: 11px; color: var(--sepia-dark); flex-shrink: 0; }
+
+    .journal-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 14px; font-weight: 300;
+      color: var(--text-main); flex: 1;
+    }
+
+    .journal-arrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; color: var(--text-dim);
+      transition: transform 0.2s, color 0.2s;
+    }
+
+    .journal-item:hover .journal-arrow { transform: translateX(4px); color: var(--sepia-dark); }
+
     /* ── FOOTER ── */
     footer { border-top: 1px solid var(--border); padding: 30px 20px; }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; max-width: 920px; margin: 0 auto; }
@@ -374,36 +419,17 @@
         </div>
       </div>
 
-      <div class="gallery-item" data-category="character"
-           data-title="エリス"
-           data-desc="エリスがアイスクリーム食べてたらいいなと思って描きました"
-           data-tag="CHARACTER" data-date="2026.06.10">
-        <div class="item-ratio">
-          <div class="item-inner">
-            <img src="無職転生ファンサイト①.jpg" alt="エリス">
-          </div>
-          <div class="item-overlay">
-            <div class="overlay-title">エリス</div>
-            <div class="overlay-meta">
-              <span class="overlay-tag">CHARACTER</span>
-              <span class="overlay-date">2026.06.10</span>
-              <span class="overlay-flower">✾</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
       <!-- 2 -->
       <div class="gallery-item" data-category="character"
-           data-title="エリス"
-           data-desc="マウント取るエリス"
+           data-title="ルーデウス"
+           data-desc="なんか好きな表情を描きたくて。うまく言えないけどこの感じ。"
            data-tag="CHARACTER" data-date="2026.04.28">
         <div class="item-ratio">
           <div class="item-inner">
-            <img src="illust1.jpg" alt="エリス">
+            <img src="illust1.jpg" alt="ルーデウス">
           </div>
           <div class="item-overlay">
-            <div class="overlay-title">エリス</div>
+            <div class="overlay-title">ルーデウス</div>
             <div class="overlay-meta">
               <span class="overlay-tag">CHARACTER</span>
               <span class="overlay-date">2026.04.28</span>
@@ -415,15 +441,15 @@
 
       <!-- 3 -->
       <div class="gallery-item" data-category="sketch"
-           data-title="俯瞰のエリス"
-           data-desc="なんとなく手が動いたやつ。練習というか。"
+           data-title="落書き帳 01"
+           data-desc="なんとなく手が動いたやつ。練習というか、記録というか。"
            data-tag="SKETCH" data-date="2026.04.20">
         <div class="item-ratio">
           <div class="item-inner">
-            <img src="エリスフカン.jpg" alt="落書き帳 01">
+            <img src="illust2.jpg" alt="落書き帳 01">
           </div>
           <div class="item-overlay">
-            <div class="overlay-title">エリス</div>
+            <div class="overlay-title">落書き帳 01</div>
             <div class="overlay-meta">
               <span class="overlay-tag">SKETCH</span>
               <span class="overlay-date">2026.04.20</span>
@@ -455,15 +481,15 @@
 
       <!-- 5 -->
       <div class="gallery-item" data-category="scene"
-           data-title="悲しいエリス"
-           data-desc="エリスの悲しい感じ。ルーデウスと別れたすぐあと"
+           data-title="腕組みエリス"
+           data-desc="エリスの悲しい感じ"
            data-tag="SCENE" data-date="2026.04.05">
         <div class="item-ratio">
           <div class="item-inner">
-            <img src="illust4.jpg" alt="悲しいエリス">
+            <img src="illust4.jpg" alt="腕組みエリス">
           </div>
           <div class="item-overlay">
-            <div class="overlay-title">悲しいエリス</div>
+            <div class="overlay-title">腕組みエリス</div>
             <div class="overlay-meta">
               <span class="overlay-tag">SCENE</span>
               <span class="overlay-date">2026.04.05</span>
@@ -475,15 +501,15 @@
 
       <!-- 6 -->
       <div class="gallery-item" data-category="sketch"
-           data-title="シルフィ　落書き"
-           data-desc="手癖で描いたやつ。"
+           data-title="エリス　落書き"
+           data-desc="手癖で描いたやつ。構図の練習。"
            data-tag="SKETCH" data-date="2026.03.28">
         <div class="item-ratio">
           <div class="item-inner">
-            <img src="illust5.jpg" alt="シルフィ 落書き">
+            <img src="illust5.jpg" alt="エリス 落書き">
           </div>
           <div class="item-overlay">
-            <div class="overlay-title">シルフィ　落書き</div>
+            <div class="overlay-title">エリス　落書き</div>
             <div class="overlay-meta">
               <span class="overlay-tag">SKETCH</span>
               <span class="overlay-date">2026.03.28</span>
@@ -493,7 +519,47 @@
         </div>
       </div>
 
+      <!-- 7 -->
+      <div class="gallery-item" data-category="character"
+           data-title="エリス"
+           data-desc="好きすぎてどう描いていいか分からなかった。これでリトライ。"
+           data-tag="CHARACTER" data-date="2026.03.15">
+        <div class="item-ratio">
+          <div class="item-inner">
+            <img src="エリス無職転生FA2.jpg" alt="エリス">
+          </div>
+          <div class="item-overlay">
+            <div class="overlay-title">エリス</div>
+            <div class="overlay-meta">
+              <span class="overlay-tag">CHARACTER</span>
+              <span class="overlay-date">2026.03.15</span>
+              <span class="overlay-flower">❀</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /gallery-grid -->
+
+    <div class="divider" style="margin-top:40px;">
+      <span>✿</span><span class="sm">· · ·</span><span>✿</span>
+    </div>
+
+    <!-- ── JOURNAL ── -->
+    <div class="section-header">
+      <span class="section-deco">✦</span>
+      <span class="section-title">Journal</span>
+      <div class="section-line"></div>
+      <span class="section-count">1 work</span>
+    </div>
+
+    <div class="journal-list">
+      <a class="journal-item" href="report1.html">
+        <span class="journal-flower">❀</span>
+        <span class="journal-title">巻数ごとの読んだ感想</span>
+        <span class="journal-arrow">→</span>
+      </a>
+    </div>
 
     <div class="divider" style="margin-top:40px;">
       <span>✿</span><span class="sm">· · ·</span><span>✿</span>
