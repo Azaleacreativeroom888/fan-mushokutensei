@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>巻数ごとの感想 — Mushoku Tensei Fan Log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:          #1c1410;
+      --bg-warm:     #221a12;
+      --bg-card:     #271e15;
+      --bg-hover:    #2e2318;
+      --border:      #3a2e22;
+      --border-soft: #4a3c2c;
+      --text-main:   #d4c4a8;
+      --text-sub:    #9a8a70;
+      --text-dim:    #5a4e3c;
+      --sepia:       #c8a870;
+      --sepia-dark:  #8a6a40;
+      --rose:        #9a7060;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      line-height: 1.9;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%,  rgba(180,140,80,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(140,100,60,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse 30% 20% at 10% 60%, rgba(160,120,70,0.03) 0%, transparent 50%);
+      pointer-events: none; z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    header, main, footer { position: relative; z-index: 1; }
+
+    @keyframes sway {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-5px) rotate(2deg); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .anim    { animation: fadeUp 0.7s ease both; }
+    .anim-d1 { animation-delay: 0.07s; }
+    .anim-d2 { animation-delay: 0.14s; }
+    .anim-d3 { animation-delay: 0.21s; }
+
+    /* ── HEADER ── */
+    header {
+      padding: 52px 20px 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .deco-topleft  { position: absolute; top: 14px; left: 18px; font-size: 18px; color: var(--sepia-dark); opacity: 0.25; animation: sway 7s ease-in-out infinite; }
+    .deco-topright { position: absolute; top: 14px; right: 18px; font-size: 14px; color: var(--rose); opacity: 0.2; animation: sway 9s ease-in-out infinite reverse; }
+
+    .header-ornament { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; }
+    .ornament-line     { width: 50px; height: 1px; background: linear-gradient(to right, transparent, var(--sepia-dark)); }
+    .ornament-line.rev { background: linear-gradient(to left, transparent, var(--sepia-dark)); }
+    .ornament-diamond  { width: 5px; height: 5px; border: 1px solid var(--sepia-dark); transform: rotate(45deg); flex-shrink: 0; }
+    .ornament-text     { font-family: 'Cormorant Garamond', serif; font-size: 10px; font-style: italic; color: var(--text-dim); letter-spacing: 0.35em; }
+
+    .site-title {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(22px, 4vw, 34px); font-weight: 300; font-style: italic;
+      color: var(--text-main); letter-spacing: 0.06em; margin-bottom: 4px;
+      text-shadow: 0 2px 20px rgba(180,140,80,0.12); text-decoration: none;
+    }
+
+    .page-label { font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.5em; color: var(--text-dim); margin-bottom: 28px; }
+
+    nav { display: inline-flex; border: 1px solid var(--border); overflow: hidden; border-radius: 2px; }
+    nav a { color: var(--text-sub); text-decoration: none; font-size: 9px; letter-spacing: 0.4em; font-family: 'Cormorant Garamond', serif; padding: 7px 22px; transition: color 0.3s, background 0.3s; border-right: 1px solid var(--border); }
+    nav a:last-child { border-right: none; }
+    nav a:hover { color: var(--sepia); background: var(--bg-hover); }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+
+    .breadcrumb a, .breadcrumb span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover { color: var(--text-sub); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text-sub); }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 52px 24px 80px;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+    .section-deco  { font-size: 11px; color: var(--sepia-dark); }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 11px; font-weight: 400; letter-spacing: 0.45em; color: var(--text-sub); text-transform: uppercase; white-space: nowrap; }
+    .section-line  { flex: 1; height: 1px; background: linear-gradient(to right, var(--border-soft), transparent); }
+
+    /* ── VOLUME CARDS ── */
+    .volumes {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .vol-card {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: var(--bg-card);
+      margin-bottom: 12px;
+      overflow: hidden;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .vol-card:nth-child(1) { animation-delay: 0.05s; }
+    .vol-card:nth-child(2) { animation-delay: 0.10s; }
+    .vol-card:nth-child(3) { animation-delay: 0.15s; }
+    .vol-card:nth-child(4) { animation-delay: 0.20s; }
+    .vol-card:nth-child(5) { animation-delay: 0.25s; }
+
+    /* ── ヘッダー行（クリックで開閉） ── */
+    .vol-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+      position: relative;
+    }
+
+    .vol-header:hover { background: var(--bg-hover); }
+
+    .vol-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--sepia-dark);
+      line-height: 1;
+      min-width: 36px;
+    }
+
+    .vol-info { flex: 1; }
+
+    .vol-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-main);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .vol-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .vol-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+    }
+
+    .vol-score {
+      display: flex;
+      gap: 2px;
+    }
+
+    .star {
+      font-size: 9px;
+      color: var(--sepia-dark);
+      opacity: 0.3;
+    }
+
+    .star.on { opacity: 1; }
+
+    .vol-toggle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      color: var(--text-dim);
+      transition: transform 0.3s ease, color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .vol-card.open .vol-toggle {
+      transform: rotate(90deg);
+      color: var(--sepia-dark);
+    }
+
+    /* 左端のアクセントライン */
+    .vol-header::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--sepia-dark), var(--rose));
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.35s ease;
+    }
+
+    .vol-card.open .vol-header::before,
+    .vol-header:hover::before {
+      transform: scaleY(1);
+    }
+
+    /* ── 感想本文 ── */
+    .vol-body {
+      display: none;
+      padding: 0 20px 22px 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .vol-card.open .vol-body {
+      display: block;
+      animation: fadeUp 0.35s ease;
+    }
+
+    .vol-body-inner {
+      padding-top: 18px;
+    }
+
+    .vol-body p {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 2.2;
+    }
+
+    .vol-body p + p { margin-top: 12px; }
+
+    /* 一言ハイライト */
+    .vol-highlight {
+      margin-top: 18px;
+      padding: 14px 18px;
+      border-left: 2px solid var(--sepia-dark);
+      background: var(--bg-warm);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .vol-highlight p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text-sub);
+      line-height: 1.8;
+    }
+
+    /* 未読プレースホルダー */
+    .vol-unread {
+      padding: 14px 0 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--text-dim);
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 30px 20px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; max-width: 680px; margin: 0 auto; }
+    .footer-mark    { font-family: 'Cormorant Garamond', serif; font-size: 12px; color: var(--text-dim); letter-spacing: 0.3em; font-style: italic; }
+    .footer-flowers { font-size: 11px; color: var(--text-dim); letter-spacing: 0.3em; }
+    .footer-copy    { font-family: 'Cormorant Garamond', serif; font-size: 10px; color: var(--text-dim); letter-spacing: 0.2em; }
+
+    @media (max-width: 480px) {
+      .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="deco-topleft">✾</div>
+    <div class="deco-topright">❧</div>
+
+    <div class="header-ornament anim">
+      <div class="ornament-line rev"></div>
+      <div class="ornament-diamond"></div>
+      <span class="ornament-text">fan archive</span>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+
+    <a href="index.html" class="site-title anim anim-d1">Mushoku Tensei Fan Log</a>
+    <div class="page-label anim anim-d2">— JOURNAL —</div>
+
+    <nav class="anim anim-d3">
+      <a href="index.html">HOME</a>
+      <a href="blog.html">BLOG</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="about.html">ABOUT</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class="breadcrumb anim">
+      <a href="gallery.html">GALLERY</a>
+      <span class="sep">→</span>
+      <span class="current">巻数ごとの読んだ感想</span>
+    </div>
+
+    <div class="section-header">
+      <span class="section-deco">✦</span>
+      <span class="section-title">巻数ごとの読んだ感想</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="volumes">
+
+      <!-- 1巻 -->
+      <div class="vol-card open">
+        <div class="vol-header" onclick="toggleVol(this)">
+          <span class="vol-num">I</span>
+          <div class="vol-info">
+            <span class="vol-title">1巻</span>
+            <div class="vol-meta">
+              <span class="vol-date">読了 2026.03.01</span>
+              <div class="vol-score">
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+              </div>
+            </div>
+          </div>
+          <span class="vol-toggle">›</span>
+        </div>
+        <div class="vol-body">
+          <div class="vol-body-inner">
+            <p>
+              ここに感想を書く。
+            </p>
+            <div class="vol-highlight">
+              <p>一番印象に残ったシーンや台詞など。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2巻 -->
+      <div class="vol-card">
+        <div class="vol-header" onclick="toggleVol(this)">
+          <span class="vol-num">II</span>
+          <div class="vol-info">
+            <span class="vol-title">2巻</span>
+            <div class="vol-meta">
+              <span class="vol-date">読了 2026.03.08</span>
+              <div class="vol-score">
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star">★</span>
+              </div>
+            </div>
+          </div>
+          <span class="vol-toggle">›</span>
+        </div>
+        <div class="vol-body">
+          <div class="vol-body-inner">
+            <p>
+              ここに感想を書く。
+            </p>
+            <div class="vol-highlight">
+              <p>一番印象に残ったシーンや台詞など。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3巻 -->
+      <div class="vol-card">
+        <div class="vol-header" onclick="toggleVol(this)">
+          <span class="vol-num">III</span>
+          <div class="vol-info">
+            <span class="vol-title">3巻</span>
+            <div class="vol-meta">
+              <span class="vol-date">読了 2026.03.15</span>
+              <div class="vol-score">
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+              </div>
+            </div>
+          </div>
+          <span class="vol-toggle">›</span>
+        </div>
+        <div class="vol-body">
+          <div class="vol-body-inner">
+            <p>
+              ここに感想を書く。
+            </p>
+            <div class="vol-highlight">
+              <p>一番印象に残ったシーンや台詞など。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4巻 -->
+      <div class="vol-card">
+        <div class="vol-header" onclick="toggleVol(this)">
+          <span class="vol-num">IV</span>
+          <div class="vol-info">
+            <span class="vol-title">4巻</span>
+            <div class="vol-meta">
+              <span class="vol-date">読了 2026.03.22</span>
+              <div class="vol-score">
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star on">★</span>
+                <span class="star">★</span>
+              </div>
+            </div>
+          </div>
+          <span class="vol-toggle">›</span>
+        </div>
+        <div class="vol-body">
+          <div class="vol-body-inner">
+            <p>
+              ここに感想を書く。
+            </p>
+            <div class="vol-highlight">
+              <p>一番印象に残ったシーンや台詞など。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5巻（未読） -->
+      <div class="vol-card">
+        <div class="vol-header" onclick="toggleVol(this)">
+          <span class="vol-num" style="opacity:0.3;">V</span>
+          <div class="vol-info">
+            <span class="vol-title" style="color:var(--text-dim);">5巻</span>
+            <div class="vol-meta">
+              <span class="vol-date" style="opacity:0.5;">未読</span>
+            </div>
+          </div>
+          <span class="vol-toggle">›</span>
+        </div>
+        <div class="vol-body">
+          <div class="vol-body-inner">
+            <p class="vol-unread">✿ &nbsp; まだ読んでいません &nbsp; ✿</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /volumes -->
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-mark">Fan Archive</span>
+      <span class="footer-flowers">✾ · ✿ · ❀</span>
+      <span class="footer-copy">© Fan Log — 無職転生</span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleVol(header) {
+      const card = header.parentElement;
+      card.classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
