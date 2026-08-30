@@ -66,6 +66,31 @@
       50%      { transform: translateY(-5px) rotate(2deg); }
     }
 
+    /* ── 魔法陣 ── */
+    .magic-circle-wrap {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(480px, 90vw);
+      height: min(480px, 90vw);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .mc-outer { animation: mcRotateOuter 40s linear infinite; transform-origin: center; }
+    .mc-mid   { animation: mcRotateMid   25s linear infinite reverse; transform-origin: center; }
+    .mc-inner { animation: mcRotateInner 15s linear infinite; transform-origin: center; }
+
+    @keyframes mcRotateOuter { to { transform: rotate(360deg); } }
+    @keyframes mcRotateMid   { to { transform: rotate(360deg); } }
+    @keyframes mcRotateInner { to { transform: rotate(360deg); } }
+
+    .mc-pulse { animation: mcGlowPulse 4s ease-in-out infinite; }
+    @keyframes mcGlowPulse {
+      0%,100% { opacity: 0.25; }
+      50%      { opacity: 0.55; }
+    }
+
     /* ── HEADER ── */
     header {
       padding: 64px 20px 48px;
@@ -114,7 +139,10 @@
       color: var(--text-dim);
       font-family: 'Cormorant Garamond', serif;
       margin-bottom: 14px;
+      position: relative; z-index: 1;
     }
+
+    header h1, .title-sub, .header-ornament, nav { position: relative; z-index: 1; }
 
     header h1 {
       font-family: 'Cormorant Garamond', serif;
@@ -465,6 +493,57 @@
     <div class="deco-topleft">✾</div>
     <div class="deco-topright">❧</div>
 
+    <!-- 魔法陣 -->
+    <div class="magic-circle-wrap">
+      <svg viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="mc-glow">
+            <feGaussianBlur stdDeviation="3" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- 背景グロー -->
+        <circle cx="350" cy="350" r="280" fill="rgba(138,106,64,0.04)" class="mc-pulse"/>
+        <circle cx="350" cy="350" r="190" fill="rgba(200,168,112,0.03)" class="mc-pulse"/>
+
+        <!-- 外円 -->
+        <g class="mc-outer" style="transform-origin:350px 350px">
+          <circle cx="350" cy="350" r="300" fill="none" stroke="rgba(138,106,64,0.22)" stroke-width="1"/>
+          <circle cx="350" cy="350" r="291" fill="none" stroke="rgba(138,106,64,0.1)" stroke-width="0.5"/>
+          <text font-family="serif" font-size="13" fill="rgba(200,168,112,0.35)" filter="url(#mc-glow)">
+            <textPath href="#mc-outer-path">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ</textPath>
+          </text>
+          <defs><path id="mc-outer-path" d="M350,50 a300,300 0 1,1 -0.1,0"/></defs>
+          <polygon points="350,58 489,128 590,250 590,450 489,572 350,642 211,572 110,450 110,250 211,128"
+            fill="none" stroke="rgba(138,106,64,0.15)" stroke-width="1"/>
+        </g>
+
+        <!-- 中円 -->
+        <g class="mc-mid" style="transform-origin:350px 350px">
+          <circle cx="350" cy="350" r="220" fill="none" stroke="rgba(138,106,64,0.28)" stroke-width="1.2" stroke-dasharray="6,4"/>
+          <polygon points="350,142 428,280 564,280 486,418 564,556 350,556 136,556 214,418 136,280 272,280"
+            fill="none" stroke="rgba(138,106,64,0.18)" stroke-width="1"/>
+          <polygon points="350,160 476,370 224,370" fill="none" stroke="rgba(200,168,112,0.2)" stroke-width="1"/>
+          <polygon points="350,540 224,330 476,330" fill="none" stroke="rgba(200,168,112,0.2)" stroke-width="1"/>
+        </g>
+
+        <!-- 内円 -->
+        <g class="mc-inner" style="transform-origin:350px 350px">
+          <circle cx="350" cy="350" r="140" fill="none" stroke="rgba(200,168,112,0.35)" stroke-width="1.2" filter="url(#mc-glow)"/>
+          <circle cx="350" cy="350" r="130" fill="none" stroke="rgba(138,106,64,0.15)" stroke-width="0.5"/>
+          <polygon points="350,215 398,353 352,460 248,396 302,253"
+            fill="none" stroke="rgba(200,168,112,0.22)" stroke-width="1" filter="url(#mc-glow)"/>
+          <circle cx="350" cy="350" r="6"  fill="rgba(200,168,112,0.45)" filter="url(#mc-glow)"/>
+          <circle cx="350" cy="350" r="2.5" fill="rgba(220,190,130,0.7)"/>
+        </g>
+
+        <!-- 固定の十字線 -->
+        <line x1="350" y1="50"  x2="350" y2="650" stroke="rgba(138,106,64,0.06)" stroke-width="0.5"/>
+        <line x1="50"  y1="350" x2="650" y2="350" stroke="rgba(138,106,64,0.06)" stroke-width="0.5"/>
+      </svg>
+    </div>
+
     <div class="header-ornament anim">
       <div class="ornament-line rev"></div>
       <div class="ornament-diamond"></div>
@@ -538,21 +617,19 @@
 
       <div class="gallery">
         <div class="gallery-item">
-          <img src="無職転生ファンサイト①.jpg" alt="エリス">
+          <!-- <img src="illust1.jpg" alt=""> -->
           <div class="gallery-placeholder">
             <span class="ph-icon">🌸</span>
             <span class="ph-label">ILLUST · 01</span>
           </div>
         </div>
         <div class="gallery-item">
-          <img src="エリスフカン.jpg" alt="エリス">
           <div class="gallery-placeholder">
             <span class="ph-icon">🌿</span>
             <span class="ph-label">ILLUST · 02</span>
           </div>
         </div>
         <div class="gallery-item">
-          <img src="illust5.jpg" alt="エリス">
           <div class="gallery-placeholder">
             <span class="ph-icon">🕯️</span>
             <span class="ph-label">ILLUST · 03</span>
@@ -562,10 +639,6 @@
     </div>
 
   </div>
-
-  <!-- FC2カウンター ここから -->
-<script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=89515971"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=89515971" /></noscript>
-<!-- FC2カウンター ここまで -->
 
   <footer>
     <div class="footer-inner">
